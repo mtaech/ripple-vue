@@ -1,13 +1,26 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Editor from "./components/common/editor/Editor.vue";
+<script setup lang="ts">
+import Home from "./components/home/Index.vue";
+import {GlobalThemeOverrides} from "naive-ui";
+
+const themeOverrides: GlobalThemeOverrides = {
+  common: {
+    primaryColor: '#FF0000'
+  },
+  Button: {
+    textColor: '#FF0000'
+  }
+}
 </script>
 
 <template>
-  <div class="container">
-    <Editor/>
-  </div>
+
+  <n-config-provider locale="zhCN" date-locale="dateZhCN">
+    <n-message-provider>
+      <div class="container">
+        <Home/>
+      </div>
+    </n-message-provider>
+  </n-config-provider>
 </template>
 
 <style scoped>

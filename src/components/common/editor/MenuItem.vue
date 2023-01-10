@@ -1,3 +1,15 @@
+<script setup lang="ts">
+interface Item {
+  type?: string,
+  title?: string,
+  icon?: string,
+  action?: () => void,
+  isActive?: () => boolean
+}
+
+ const {icon,title,action,isActive} =
+     defineProps<Item>();
+</script>
 <template>
   <button
       class="menu-item"
@@ -10,42 +22,13 @@
   </button>
 </template>
 
-<script>
-import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
-import bootstrapUrl from 'bootstrap-icons/bootstrap-icons.svg';
+<script lang="ts">
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap-icons/font/fonts/bootstrap-icons.woff';
 import 'bootstrap-icons/font/fonts/bootstrap-icons.woff2';
-export default {
-  props: {
-    icon: {
-      type: String,
-      required: true,
-    },
-
-    title: {
-      type: String,
-      required: true,
-    },
-
-    action: {
-      type: Function,
-      required: true,
-    },
-
-    isActive: {
-      type: Function,
-      default: null,
-    },
-  },
-
-  data() {
-    return {
-      remixiconUrl,
-      bootstrapUrl
-    }
-  },
-}
+import {defineComponent} from "vue";
+export default defineComponent({
+})
 </script>
 
 <style >
@@ -66,5 +49,4 @@ export default {
   color: #fff;
   background-color: #0d0d0d;
 }
-
 </style>

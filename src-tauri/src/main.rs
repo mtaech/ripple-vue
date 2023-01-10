@@ -8,12 +8,13 @@ use sea_orm::DatabaseConnection;
 use serde::{Deserialize, Serialize};
 use tauri::Config;
 
-use crate::util::init::init_db;
-use crate::util::{init, resolve};
+use crate::util::resolve;
 
 mod command;
+mod common;
 mod db;
 mod util;
+
 static DB: OnceCell<DatabaseConnection> = OnceCell::new();
 
 #[derive(Serialize, Deserialize)]
@@ -24,10 +25,10 @@ pub struct ApiResult<T> {
 }
 
 impl<T> ApiResult<T> {
-    fn success(msg: String, data: Option<T>) -> ApiResult<T> {
+    fn success(data: Option<T>) -> ApiResult<T> {
         ApiResult {
             code: 200,
-            msg,
+            msg: "ok".to_string(),
             data,
         }
     }
@@ -43,8 +44,19 @@ impl<T> ApiResult<T> {
 fn main() {
     let config = Config::default();
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![command::chapter::save_chapter])
-        .setup(|app| Ok(resolve::resolve_setup(app)))
+        .invoke_handler(tauri::generate_handler![
+            command::chapter::save_chapter,
+            command::book::get_book_list,
+            command::book::save_book,
+            command::chapter::get_chapter_page,
+            command::chapter::get_chapter_list,
+            command::chapter::find_chapter_by_id,
+            command::chapter::create_chapter,
+        ])
+        .setup(|app| {
+            resolve::resolve_setup(app);
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

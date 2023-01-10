@@ -1,8 +1,6 @@
 use crate::util::init;
 use crate::DB;
 use migration::{Migrator, MigratorTrait};
-use sea_orm::DatabaseConnection;
-use tauri::api::private::OnceCell;
 use tauri::{App, Wry};
 
 /// handle something when start app

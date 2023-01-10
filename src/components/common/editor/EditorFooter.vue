@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "EditorFooter",
   props: {
@@ -26,10 +26,9 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   white-space: nowrap;
-  border-top: 3px solid #0d0d0d;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #0d0d0d;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #383737;
   padding: 0.5rem 0.75rem;
 }
 </style>

@@ -3,16 +3,16 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq,Default,Deserialize,Serialize)]
-#[sea_orm(table_name = "character")]
+#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq,Default,Serialize,Deserialize)]
+#[sea_orm(table_name = "attachment")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: String,
-    pub name: Option<String>,
-    pub age: Option<String>,
-    pub gender: Option<String>,
-    pub create_time: Option<String>,
-    pub modified_time: Option<String>,
+    pub file_name: Option<String>,
+    pub file_size: Option<i32>,
+    pub file_path: Option<String>,
+    pub suffix: Option<String>,
+    pub content_type: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
