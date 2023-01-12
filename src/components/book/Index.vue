@@ -5,20 +5,17 @@ import {BookModel, Page} from "../../types/model";
 import {request} from "../../api/request";
 import BookEdit from "./BookEdit.vue";
 import BookItem from "./BookItem.vue";
-import routers from "../../Routers";
 
 
-const bookPageRef = ref<Page<BookModel>>({pages: 0, page_no: 0, page_size: 10, datas: [], total: 0});
+const bookListRef = ref<BookModel[]>([] as BookModel[]);
 const editShowRef = ref<boolean>(false);
 onMounted(() => {
-  getBookList(1);
+  getBookList();
 })
 
-function getBookList(page: number) {
-  let page_no = page ? page : 1;
-  console.log("page num", page)
-  request<Page<BookModel>>("get_book_list", {req: {page_no: page_no, page_size: 10}}).then((bookList) => {
-    bookPageRef.value = bookList
+function getBookList() {
+  request<BookModel[]>("get_book_list").then((bookList) => {
+    bookListRef.value = bookList
   })
 }
 
@@ -36,45 +33,27 @@ function saveBook() {
   bookEditRef.value.saveBook();
 }
 
-function toChapterList(bookId: string, bookName: string) {
-  routers.push({name: 'bookInfo', params: {bookId: bookId, bookName: bookName}})
-}
+
 
 </script>
 <template>
-  <div>
-    <n-card class="default-content">
-      <template #header>
-        <div>我的作品</div>
+  <div class="default-content">
+    <n-page-header style="padding-left: 24px;">
+      <template #title>
+        <span style="font-size: 1.6rem;">我的作品</span>
       </template>
-      <template #header-extra>
+      <template #extra>
         <div class="book-header">
           <div class="book-header-right">
             <n-button @click="openModal">新建作品</n-button>
           </div>
         </div>
       </template>
+    </n-page-header>
+    <n-card class="default-content" :bordered="false">
       <n-list clickable >
-        <n-list-item v-if="bookPageRef.total> 0"
-            :key="book.id" v-for="(book,index) in bookPageRef.datas"
-                     @click="toChapterList(book.id,book.name)">
-          <book-item :book="book"/>
-          <template #suffix>
-            <n-button text>
-              编辑
-            </n-button>
-          </template>
-        </n-list-item>
-        <n-empty class="empty-list-content" size="large" v-else></n-empty>
+        <book-item :book-list="bookListRef"/>
       </n-list>
-      <n-pagination
-          style="padding-top: 24px;"
-          :on-update:page="getBookList"
-          :page="bookPageRef.page_no"
-          :page-size="bookPageRef.page_size"
-          :page-count="bookPageRef.pages"
-          :default-page="0"
-          :default-page-size="10"/>
     </n-card>
     <div>
       <n-drawer v-model:show="editShowRef" :width="'40%'">

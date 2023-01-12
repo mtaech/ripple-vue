@@ -57,6 +57,8 @@ impl MigrationTrait for Migration {
                     .if_not_exists()
                     .col(ColumnDef::new(Book::Id).string().not_null().primary_key())
                     .col(ColumnDef::new(Book::Name).string())
+                    .col(ColumnDef::new(Book::CoverId).string())
+                    .col(ColumnDef::new(Book::CoverPath).string())
                     .col(ColumnDef::new(Book::Description).string())
                     .col(ColumnDef::new(Book::CreateTime).string())
                     .col(ColumnDef::new(Book::ModifiedTime).string())
@@ -91,6 +93,8 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Attachment::FilePath).string())
                     .col(ColumnDef::new(Attachment::Suffix).string())
                     .col(ColumnDef::new(Attachment::ContentType).string())
+                    .col(ColumnDef::new(Attachment::CreateTime).string())
+                    .col(ColumnDef::new(Attachment::ModifiedTime).string())
                     .to_owned(),
             )
             .await?;
@@ -159,6 +163,8 @@ enum Book {
     Table,
     Id,
     Name,
+    CoverId,
+    CoverPath,
     Description,
     CreateTime,
     ModifiedTime,
@@ -183,6 +189,8 @@ enum Attachment {
     FilePath,
     Suffix,
     ContentType,
+    CreateTime,
+    ModifiedTime,
 }
 
 #[derive(Iden)]

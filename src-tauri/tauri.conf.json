@@ -16,6 +16,33 @@
       "shell": {
         "all": false,
         "open": true
+      },
+      "dialog": {
+        "all": true,
+        "open": true,
+        "save": true
+      },
+      "fs": {
+        "scope":[
+          "$PICTURE/*/*"
+        ],
+        "all": true,
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "exists": true
+      },
+      "path":{
+        "all": true
+      },
+      "protocol": {
+        "asset": true,
+        "assetScope": ["$PICTURE/**","$CONFIG/**"]
       }
     },
     "bundle": {
@@ -52,7 +79,7 @@
       }
     },
     "security": {
-      "csp": null
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
     },
     "updater": {
       "active": false

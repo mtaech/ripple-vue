@@ -48,10 +48,13 @@ fn main() {
             command::chapter::save_chapter,
             command::book::get_book_list,
             command::book::save_book,
+            command::book::get_book_text_count,
             command::chapter::get_chapter_page,
             command::chapter::get_chapter_list,
             command::chapter::find_chapter_by_id,
             command::chapter::create_chapter,
+            command::attachment::add_file,
+            command::env::get_env_info,
         ])
         .setup(|app| {
             resolve::resolve_setup(app);

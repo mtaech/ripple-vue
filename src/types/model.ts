@@ -13,6 +13,8 @@ interface BaseModel {
 export interface BookModel extends BaseModel {
     name: string,
     description: string,
+    cover_id:string
+    cover_path:string
 }
 
 export interface Page<T> {
@@ -54,4 +56,21 @@ export interface EditorInfo {
     html: string,
     text_count: number,
     word_count: number
+}
+
+export interface Attachment extends BaseModel {
+    file_name: string,
+    content_type: string,
+    file_size: number,
+    suffix: string
+    file_path: string
+}
+
+export interface EnvInfo {
+    home_dir_path: string,
+    config_dir_path: string,
+    log_dir_path: string,
+    db_dir_path: string,
+    att_dir_path:string,
+    cover_dir_path:string,
 }

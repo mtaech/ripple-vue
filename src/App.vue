@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Home from "./components/home/Index.vue";
 import {GlobalThemeOverrides} from "naive-ui";
+import { zhCN, dateZhCN } from 'naive-ui'
 
 const themeOverrides: GlobalThemeOverrides = {
   common: {
@@ -14,7 +15,7 @@ const themeOverrides: GlobalThemeOverrides = {
 
 <template>
 
-  <n-config-provider locale="zhCN" date-locale="dateZhCN">
+  <n-config-provider :locale="zhCN" :date-locale="dateZhCN">
     <n-message-provider>
       <div class="container">
         <Home/>

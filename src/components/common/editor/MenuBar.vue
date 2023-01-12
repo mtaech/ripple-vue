@@ -28,12 +28,6 @@ const items:Item[] =  [
     isActive: () => editor.isActive('strike'),
   },
   {
-    icon: 'code-slash',
-    title: '代码',
-    action: () => editor.chain().focus().toggleCode().run(),
-    isActive: () => editor.isActive('code'),
-  },
-  {
     icon: 'pen',
     title: '高亮',
     action: () => editor.chain().focus().toggleHighlight().run(),
@@ -77,12 +71,6 @@ const items:Item[] =  [
     title: '待办列表',
     action: () => editor.chain().focus().toggleTaskList().run(),
     isActive: () => editor.isActive('taskList'),
-  },
-  {
-    icon: 'code-square',
-    title: '代码块',
-    action: () => editor.chain().focus().toggleCodeBlock().run(),
-    isActive: () => editor.isActive('codeBlock'),
   },
   {
     type: 'divider',

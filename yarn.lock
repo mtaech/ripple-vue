@@ -425,6 +425,11 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
 
+"@lylajs/core@0.6.8":
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/@lylajs/core/-/core-0.6.8.tgz#9ba8d1ee9f3cafa725c78be57fed4c05304d833f"
+  integrity sha512-5ReVeSJn1dflkofNdRPjzaby8OP+9DHr6+5hg+Rbmls8DLiVM8ULcM9HaPEyQQgNM6oEwxgRqKCOtZ6RqwOjNQ==
+
 "@node-ipc/js-queue@2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@node-ipc/js-queue/-/js-queue-2.0.3.tgz#ac7fe33d766fa53e233ef8fedaf3443a01c5a4cd"
@@ -2069,6 +2074,13 @@ lru-cache@^6.0.0:
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
+
+lyla@^0.6.8:
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/lyla/-/lyla-0.6.8.tgz#bde13ace2dd87f593ac44c6edd6db1154d8b9553"
+  integrity sha512-xYEhZ//3uirigp4FHZytxLG2OsPNzRFRoRRre/pGCbMrX0o5byvylmgGVfaomITY5MoLPyjWy/2JiEZSlcPONg==
+  dependencies:
+    "@lylajs/core" "0.6.8"
 
 magic-string@^0.25.7:
   version "0.25.9"

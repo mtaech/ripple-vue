@@ -1,27 +1,18 @@
+use crate::util::env;
+use crate::util::env::{get_attachment_dir_dir, get_config_dir_path, get_cover_dir_dir};
 use log::info;
+use rust_embed::RustEmbed;
 use sea_orm::{ConnectOptions, Database, DatabaseConnection, DbErr};
 use std::fs;
 use std::path::PathBuf;
 use std::time::Duration;
 
-fn home_path() -> PathBuf {
-    let tauri_home = tauri::api::path::home_dir().unwrap();
-    tauri_home
-}
-pub fn get_config_path() -> PathBuf {
-    home_path().join(".config").join("ripple")
-}
-
-pub fn get_log_path() -> PathBuf {
-    let path = get_config_path().join("log");
-    if !path.exists() {
-        fs::create_dir_all(&path).unwrap();
-    }
-    path
-}
+#[derive(RustEmbed)]
+#[folder = "asset/"]
+struct Asset;
 
 pub fn get_db_path() -> PathBuf {
-    let path = get_config_path().join("db");
+    let path = get_config_dir_path().join("db");
     if !path.exists() {
         fs::create_dir_all(&path).unwrap();
     }
@@ -51,7 +42,7 @@ pub async fn init_db() -> Result<DatabaseConnection, DbErr> {
 }
 
 pub fn init_logger() -> Result<(), fern::InitError> {
-    let log_path = get_log_path();
+    let log_path = env::get_log_dir_path();
     let log_file = format!("fca-{}.log", chrono::Local::now().format("%Y-%m-%d"));
     let log_path = log_path.join(log_file);
     fern::Dispatch::new()
@@ -69,4 +60,18 @@ pub fn init_logger() -> Result<(), fern::InitError> {
         .chain(fern::log_file(log_path)?)
         .apply()?;
     Ok(())
+}
+
+pub fn init_attachment_dir() -> PathBuf {
+    get_attachment_dir_dir()
+}
+
+pub fn init_cover_file() {
+    let cover_dir_path = get_cover_dir_dir();
+    let cover_path = cover_dir_path.join("cover.png");
+    let cover_dark_path = cover_dir_path.join("cover_dark.png");
+    let cover = Asset::get("cover/cover.png").unwrap();
+    let cover_dark = Asset::get("cover/cover_dark.png").unwrap();
+    fs::write(cover_path, cover.data.as_ref()).expect("copy error");
+    fs::write(cover_dark_path, cover_dark.data.as_ref()).expect("copy error");
 }
