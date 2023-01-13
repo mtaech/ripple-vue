@@ -6,6 +6,7 @@ import {getRouteStingParam, request} from "../../api/request";
 import {useRoute} from "vue-router";
 import {onBeforeUnmount} from "vue";
 import routers from "../../Routers";
+import { Message } from '@arco-design/web-vue';
 
 let route = useRoute();
 let params = route.params;
@@ -13,7 +14,6 @@ let params = route.params;
 let editorRef = ref();
 const chapterRef = ref<Chapter>({} as Chapter);
 const chapterNameRef = ref('');
-const message = useMessage()
 
 onMounted(() => {
   console.log("param",params)
@@ -41,17 +41,16 @@ function get_chapter(id: string,bookId:string) {
 }
 
 function saveChapter() {
-  console.log("get start"+new Date().toString())
   let info: EditorInfo = editorRef.value.getEditorInfo();
-  console.log("get end"+new Date().toString())
-  console.log("info", info)
   chapterRef.value.name = chapterNameRef.value;
   chapterRef.value.html_content = info.html;
   chapterRef.value.text_content = info.text;
   chapterRef.value.text_count = info.text_count;
+  console.log("info", chapterRef.value)
+  console.log("name ref",chapterNameRef.value)
   request<Chapter>("save_chapter", {chapter: chapterRef.value}).then((chapter) => {
     console.log('save_chapter',chapter)
-    message.success("保存成功")
+    Message.success("保存成功")
   })
 }
 
@@ -72,18 +71,20 @@ function enterKey(event: KeyboardEvent) {
 
 <template>
   <div class="default-content">
-    <n-page-header title="新建"  @back="routers.back();" style="margin-bottom: 20px;">
+    <a-page-header title="新建"  @back="routers.back();" style="margin-bottom: 20px;">
       <template #extra>
-        <n-button @click="saveChapter">
+        <a-button @click="saveChapter">
           保存
-        </n-button>
+        </a-button>
       </template>
-    </n-page-header>
-    <n-input v-model:value="chapterNameRef" size="small" :bordered="false" class="chapter-name"
-             placeholder="请输入章节号和章节名。例如 第一章：灵根育孕源流出　心性修持大道生"
-    />
-    <p class="dividing-line"></p>
-    <editor ref="editorRef" />
+    </a-page-header>
+   <div style="padding-left: 24px;padding-right: 20px;">
+     <a-input v-model="chapterNameRef" size="large"  :bordered="false" class="chapter-name"
+              placeholder="请输入章节号和章节名。例如 第一章：灵根育孕源流出　心性修持大道生"
+     />
+     <a-divider/>
+     <editor ref="editorRef" />
+   </div>
   </div>
 </template>
 

@@ -3,14 +3,12 @@ import {ref} from "vue";
 import {BookModel} from "../../types/model";
 import {nanoid} from "nanoid";
 import {request} from "../../api/request";
-import {FormInst, useMessage} from 'naive-ui'
-import {dialog} from "@tauri-apps/api";
+import {dialog, path} from "@tauri-apps/api";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
 import {useEnvStore} from "../../Store";
 
 const props = defineProps<{ refreshFunc: Function, showStatus: Boolean, closeFunc: Function }>();
-const message = useMessage()
-const formRef = ref<FormInst | null>()
+const formRef = ref()
 let book: BookModel = {
   id: nanoid(10),
   name: '',
@@ -18,19 +16,26 @@ let book: BookModel = {
   create_time: '',
   modified_time: '',
   cover_id: '',
-  cover_path: ''
+  cover_path: '',
+  text_count: 0
 };
 let bookValueRef = ref<BookModel>(book)
 
 const envStore = useEnvStore();
 
-let src = envStore.env.cover_dir_path + "/cover_dark.png";
-console.log("src", src)
-const coverRef = ref<string>(src);
+onBeforeMount(()=>{
+  path.configDir().then(configPath=>{
+    path.join(configPath,"ripple","cover","cover_dark.png").then(cover_path=>{
+      coverRef.value = cover_path;
+    })
+  })
+  envStore.getEnv()
+})
+const coverRef = ref<string>("");
 
 const saveBook = () => {
   console.log(formRef.value)
-  formRef.value?.validate((errors) => {
+  formRef.value?.validate((errors: any) => {
     if (errors) {
       console.log("meifatijao")
     } else {
@@ -76,20 +81,23 @@ const rules = {
 </script>
 
 <template>
-  <div style="margin-bottom: 25px;">
-    <n-image :src="convertSrc(coverRef)" width="150" height="200" style="border-radius: 5px;margin-bottom: -5px;"/>
-    <n-button @click="uploadCover" style="margin-left: 10px;bottom: 15px;">上传封面</n-button>
-  </div>
 
-  <n-form ref="formRef" :model="bookValueRef" :rules="rules">
-    <n-form-item label="书名" path="name">
-      <n-input v-model:value="bookValueRef.id" style="display: none"/>
-      <n-input v-model:value="bookValueRef.name" placeholder="输入书名"/>
-    </n-form-item>
-    <n-form-item label="简介" path="description">
-      <n-input rows="15" type="textarea" v-model:value="bookValueRef.description" placeholder="输入简介"/>
-    </n-form-item>
-  </n-form>
+
+  <a-form ref="formRef" :model="bookValueRef" layout="vertical" :rules="rules">
+   <a-form-item label="封面图片" >
+     <div style="margin-bottom: 25px;display: flex;flex-direction: row">
+       <a-image :src="convertSrc(coverRef)" width="150" height="200" style="border-radius: 5px;margin-bottom: -5px;"/>
+       <a-button @click="uploadCover" style="margin-left: 10px;align-self: flex-end">上传封面</a-button>
+     </div>
+   </a-form-item>
+    <a-form-item label="书名" field="name" >
+      <a-input v-model="bookValueRef.id" style="display: none"/>
+      <a-input v-model="bookValueRef.name" size="large" placeholder="输入书名"/>
+    </a-form-item>
+    <a-form-item label="简介" field="description" >
+      <a-textarea :allow-clear="true" style="height: 300px" v-model="bookValueRef.description" placeholder="输入简介"/>
+    </a-form-item>
+  </a-form>
 </template>
 
 <script lang="ts">

@@ -5,21 +5,16 @@ import {createPinia} from "pinia";
 import router from "./Routers";
 import './style.css'
 import './assets/font/jxzk.ttf'
+import ArcoVue from '@arco-design/web-vue';
+import ArcoVueIcon from '@arco-design/web-vue/es/icon';
+import '@arco-design/web-vue/dist/arco.css';
 
-import 'vuetify/styles'
-import {createVuetify} from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-
-const vuetify = createVuetify({
-    components,
-    directives,
-})
 
 const pinia = createPinia()
 const app = createApp(App);
 app.use(pinia)
 app.use(router)
-app.use(vuetify)
+app.use(ArcoVue);
+app.use(ArcoVueIcon);
 
 app.mount('#app');

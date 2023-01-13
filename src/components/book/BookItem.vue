@@ -11,7 +11,6 @@ const {bookList,refreshFun} = defineProps<{bookList:BookModel[],refreshFun:Funct
 const envStore = useEnvStore();
 const textCountRef = ref<Map<string,number>>()
 const dialogRef = ref<boolean>(false);
-const dialog = useDialog()
 
 function getCoverSrc(coverId: string):string {
   if (coverId){
@@ -30,20 +29,9 @@ onUpdated(()=>{
   envStore.getEnv();
 })
 function deleteBook(bookId: string) {
-  dialog.error({
-    title: '确认删除？',
-    content: '确定删除吗？删除后所有数据将不可恢复。',
-    positiveText: '确定',
-    negativeText: '不确定',
-    onPositiveClick: () => {
-      request("delete_book_by_id",{bookId:bookId}).then(res=>{
-        refreshFun();
-        dialogRef.value = false;
-      })
-    },
-    onNegativeClick: () => {
-      changDialog(false)
-    }
+  request("delete_book_by_id",{bookId:bookId}).then(res=>{
+    refreshFun();
+    dialogRef.value = false;
   })
 }
 function changDialog(status: boolean) {
@@ -52,13 +40,15 @@ function changDialog(status: boolean) {
 </script>
 <template>
   <div>
-    <n-list-item v-if="bookList.length> 0" v-for="book in bookList" >
+    <a-list-item  v-for="book in bookList" >
       <div class="book-item-content" @click="toChapterList(book.id,book.name)">
         <div class="book-cover">
-          <n-image
+          <a-image
               :src="getCoverSrc(book.cover_path)"
-              object-fit="fill"
-              style="width: 75px;height: 100px;border-radius: 5px"></n-image>
+              width="75"
+              height="100"
+              fit="fill"
+              style="border-radius: 5px"></a-image>
         </div>
         <div class="book-info-content">
           <div class="book-title">
@@ -76,17 +66,17 @@ function changDialog(status: boolean) {
           </div>
         </div>
       </div>
-      <template #suffix>
-        <n-button variant="text" @click="deleteBook(book.id)">
-          删除
-        </n-button>
-        <n-back-top variant="text" @click="changDialog(true)">
+      <template #extra>
+        <a-popconfirm @ok="deleteBook(book.id)" content="确认删除本地所有书籍相关数据吗？">
+          <a-button variant="text" >
+            删除
+          </a-button>
+        </a-popconfirm>
+        <a-back-top variant="text" @click="changDialog(true)">
           编辑
-        </n-back-top>
+        </a-back-top>
       </template>
-    </n-list-item>
-    <n-empty class="empty-list-content" size="large" v-else></n-empty>
-
+    </a-list-item>
   </div>
 </template>
 
@@ -111,7 +101,6 @@ export default {
   font-weight: 500;
 }
 .book-info-content{
-  width: 100px;
   display: flex;
   flex-grow: 1;
   flex-flow: column wrap ;

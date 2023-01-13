@@ -1,8 +1,8 @@
 import {invoke} from "@tauri-apps/api";
 import {InvokeArgs} from "@tauri-apps/api/tauri";
 import {ApiResult} from "../types/model";
-import {ConfigProviderProps, createDiscreteApi, darkTheme, lightTheme} from 'naive-ui'
 import {RouteParams} from "vue-router";
+import {Notification} from '@arco-design/web-vue';
 
 
 export function getRouteStingParam(params:RouteParams,key:string):string {
@@ -19,16 +19,7 @@ export function getRouteStingParam(params:RouteParams,key:string):string {
 }
 
 export async function request<T>(command: string, args?: InvokeArgs): Promise<T> {
-    const themeRef = ref<'light' | 'dark'>('light')
-    const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
-        theme: themeRef.value === 'light' ? lightTheme : darkTheme
-    }))
-    const {notification} = createDiscreteApi(
-        ['notification'],
-        {
-            configProviderProps: configProviderPropsRef
-        }
-    )
+
     try {
         console.debug("args",args)
         let apiResult = await invoke<ApiResult<T>>(command, args);
@@ -36,20 +27,18 @@ export async function request<T>(command: string, args?: InvokeArgs): Promise<T>
             // @ts-ignore
             return apiResult.data;
         } else {
-            notification.error({
-                content: '操作失败',
-                meta: apiResult.msg,
-                duration: 2500,
-                keepAliveOnHover: true
+            Notification.error({
+                title: '操作失败',
+                content: apiResult.msg,
+                duration: 2500
             })
             return Promise.reject(apiResult.msg);
         }
     } catch (e) {
-        notification.error({
-            content: '操作失败',
-            meta: '操作失败请重试',
-            duration: 2500,
-            keepAliveOnHover: true
+        Notification.error({
+            title: '操作失败',
+            content: "操作失败请重试",
+            duration: 2500
         })
         console.error("error", e)
         return Promise.reject(e);

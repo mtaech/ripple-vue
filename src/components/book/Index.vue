@@ -39,35 +39,23 @@ function saveBook() {
 </script>
 <template>
   <div class="default-content">
-    <n-page-header style="padding-left: 24px;">
+    <a-page-header :show-back="false">
       <template #title>
-        <span style="font-size: 1.6rem;">我的作品</span>
+        <span style="font-size: 1.6rem;">&nbsp;作品管理</span>
       </template>
       <template #extra>
-        <div class="book-header">
-          <div class="book-header-right">
-            <n-button @click="openModal">新建作品</n-button>
-          </div>
-        </div>
+            <a-button style="margin-right: 16px;" @click="openModal">新建作品</a-button>
       </template>
-    </n-page-header>
-    <n-card class="default-content" :bordered="false">
-      <n-list clickable >
-        <book-item ref="bookItemRef" :book-list="bookListRef" :refresh-fun="getBookList"/>
-      </n-list>
-    </n-card>
+    </a-page-header>
+    <a-card :bordered="false" >
+      <a-list :bordered="false" style="padding: 0 16px" >
+        <book-item  ref="bookItemRef" :book-list="bookListRef" :refresh-fun="getBookList"/>
+      </a-list>
+    </a-card>
     <div>
-      <n-drawer v-model:show="editShowRef" :width="'40%'">
-        <n-drawer-content title="新建小说">
+      <a-drawer :visible="editShowRef" :width="'30%'"  title="新建小说" @ok="saveBook" @cancel="closeModal">
           <book-edit :close-func="closeModal" :refresh-func="getBookList" :show-status="editShowRef" ref="bookEditRef"/>
-          <template #footer>
-            <n-button-group size="medium">
-              <n-button type="tertiary">取消</n-button>
-              <n-button type="primary" @click="saveBook">确定</n-button>
-            </n-button-group>
-          </template>
-        </n-drawer-content>
-      </n-drawer>
+      </a-drawer>
     </div>
   </div>
 </template>
@@ -80,11 +68,6 @@ export default {
 </script>
 
 <style scoped>
-.book-content {
-  width: 60vw;
-  margin: 2vh auto;
-}
-
 .book-header {
   display: flex;
   font-weight: bold;

@@ -42,24 +42,17 @@ onMounted(() => {
 </script>
 <template>
   <div class="default-content">
-    <n-page-header :title="bookNameRef" subtitle="章节列表" @back="back">
+    <a-page-header :title="bookNameRef" subtitle="章节列表" @back="back">
       <template #extra>
-        <div class="book-header">
-          <div class="book-header-right">
-            <n-button @click="create_chapter"
-                      style="margin-right: 24px;"
-                      size="small">新建章节</n-button>
-          </div>
-        </div>
+        <a-button @click="create_chapter"
+                  style="margin-right: 24px;"
+                  size="small">新建章节</a-button>
       </template>
-    </n-page-header>
-    <n-card class="default-content" :bordered="false">
-      <n-list class="chapter-list" clickable :show-divider="false">
-        <n-list-item v-for="(chapter,index) in chapterListRef" v-if="chapterListRef.length > 0">
+    </a-page-header>
+    <a-card class="default-content" style="min-height: 40vh" :bordered="false">
+      <a-list class="chapter-list" :bordered="false" style="padding: 0 16px"  :show-divider="false">
+        <a-list-item v-for="(chapter,index) in chapterListRef" v-if="chapterListRef.length > 0">
           <div class="chapter-content" @click="edit_chapter(chapter.id)">
-            <span class="chapter-index">
-              {{index}}.
-            </span>
             <span class="chapter-name">
               {{ chapter.name }}
             </span>
@@ -68,11 +61,9 @@ onMounted(() => {
               {{ chapter.create_time }}
             </span>
           </div>
-        </n-list-item>
-        <n-empty v-else class="empty-list-content" size="large"
-                 description="没有章节数据"></n-empty>
-      </n-list>
-    </n-card>
+        </a-list-item>
+      </a-list>
+    </a-card>
   </div>
 </template>
 
