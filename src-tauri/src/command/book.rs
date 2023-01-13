@@ -1,5 +1,4 @@
 use crate::command::attachment;
-use crate::common::page::PageReq;
 use crate::{ApiResult, DB};
 use entity::book::{Model as BookModel, Model};
 use entity::prelude::Book;
@@ -7,10 +6,9 @@ use entity::{book, chapter};
 use log::info;
 use sea_orm::ActiveValue::Set;
 use sea_orm::{
-    ActiveModelTrait, DatabaseBackend, DeleteResult, EntityTrait, FromQueryResult, IntoActiveModel,
-    PaginatorTrait, QueryFilter, QueryOrder, QuerySelect, QueryTrait, Statement,
+    ActiveModelTrait, DatabaseBackend, EntityTrait, FromQueryResult, IntoActiveModel, QueryOrder,
+    Statement,
 };
-use serde_json::Value;
 use std::collections::HashMap;
 
 #[tauri::command]
@@ -25,7 +23,7 @@ pub async fn get_book_list() -> ApiResult<Vec<BookModel>> {
     let data_vec = data_vec
         .into_iter()
         .map(|mut data| {
-            let count = map.get(&data.id).unwrap().clone();
+            let count = *map.get(&data.id).unwrap();
             data.text_count = Some(count);
             data
         })

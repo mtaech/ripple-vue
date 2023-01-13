@@ -1,16 +1,6 @@
 <script setup lang="ts">
 import Home from "./components/home/Index.vue";
-import {GlobalThemeOverrides} from "naive-ui";
-import { zhCN, dateZhCN } from 'naive-ui'
 
-const themeOverrides: GlobalThemeOverrides = {
-  common: {
-    primaryColor: '#FF0000'
-  },
-  Button: {
-    textColor: '#FF0000'
-  }
-}
 </script>
 
 <template>
