@@ -1,8 +1,5 @@
-use std::ops::Deref;
-use std::path::PathBuf;
-
 use log::info;
-use mime_guess::Mime;
+use std::path::PathBuf;
 
 pub fn get_content_type(path: PathBuf) -> (String, String) {
     let mime = mime_guess::from_path(&path);

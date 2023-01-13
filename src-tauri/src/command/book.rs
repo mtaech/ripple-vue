@@ -1,20 +1,17 @@
 use crate::command::attachment;
-use crate::common::page::{Page, PageReq};
+use crate::common::page::PageReq;
 use crate::{ApiResult, DB};
 use entity::book::{Model as BookModel, Model};
 use entity::prelude::Book;
 use entity::{book, chapter};
 use log::info;
-use migration::Expr;
 use sea_orm::ActiveValue::Set;
 use sea_orm::{
-    ActiveModelTrait, ColumnTrait, DatabaseBackend, DeleteResult, EntityTrait, FromQueryResult,
-    IntoActiveModel, PaginatorTrait, QueryFilter, QueryOrder, QuerySelect, QueryTrait, Statement,
+    ActiveModelTrait, DatabaseBackend, DeleteResult, EntityTrait, FromQueryResult, IntoActiveModel,
+    PaginatorTrait, QueryFilter, QueryOrder, QuerySelect, QueryTrait, Statement,
 };
-use serde_json::map::Values;
-use serde_json::{json, Value};
+use serde_json::Value;
 use std::collections::HashMap;
-use tauri_utils::assets::phf::Map;
 
 #[tauri::command]
 pub async fn get_book_list() -> ApiResult<Vec<BookModel>> {

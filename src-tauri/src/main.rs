@@ -32,7 +32,7 @@ impl<T> ApiResult<T> {
             data,
         }
     }
-    fn error(msg: String) -> ApiResult<T> {
+    fn _error(msg: String) -> ApiResult<T> {
         ApiResult {
             code: 500,
             msg,
@@ -42,7 +42,6 @@ impl<T> ApiResult<T> {
 }
 
 fn main() {
-    let config = Config::default();
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             command::chapter::save_chapter,

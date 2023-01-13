@@ -1,16 +1,12 @@
+use entity::attachment;
 use log::info;
-use nanoid::nanoid;
 use sea_orm::ActiveValue::Set;
 use sea_orm::{ActiveModelBehavior, ActiveModelTrait, IntoActiveModel};
 use std::fs;
-use std::fs::File;
 use std::path::PathBuf;
 use tauri::command;
 
-use entity::attachment;
-use entity::prelude::Attachment;
-
-use crate::util::env::{get_config_dir_path, get_cover_dir_path};
+use crate::util::env::get_cover_dir_path;
 use crate::util::file;
 use crate::{ApiResult, DB};
 
