@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-import {BookModel} from "../../types/model";
+import {BookModel} from "@/types/model";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
-import {useEnvStore} from "../../Store";
-import {request} from "../../api/request";
-import routers from "../../Routers";
+import {useEnvStore} from "@/Store";
+import {request} from "@/api/request";
+import routers from "@/Routers";
 
 
 const {bookList,refreshFun} = defineProps<{bookList:BookModel[],refreshFun:Function}>();

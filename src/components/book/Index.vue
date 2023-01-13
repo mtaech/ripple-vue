@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import {NButton, NCard, NList} from "naive-ui";
 import {onMounted, ref} from "vue";
-import {BookModel, Page} from "../../types/model";
-import {request} from "../../api/request";
-import BookEdit from "./BookEdit.vue";
-import BookItem from "./BookItem.vue";
-
+import {BookModel} from "@/types/model";
+import {request} from "@/api/request";
+import BookEdit from "@/components/book/BookEdit.vue";
+import BookItem from "@/components/book/BookItem.vue";
 
 const bookListRef = ref<BookModel[]>([] as BookModel[]);
 const editShowRef = ref<boolean>(false);

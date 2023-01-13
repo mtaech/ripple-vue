@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import {getRouteStingParam, request} from "../../api/request";
-import {Chapter} from "../../types/model";
+import {getRouteStingParam, request} from "@/api/request";
+import {Chapter} from "@/types/model";
 import {ref} from "vue";
-import routers from "../../Routers";
+import routers from "@/Routers";
 import {nanoid} from "nanoid";
 import {useRoute} from "vue-router";
 

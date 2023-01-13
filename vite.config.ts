@@ -14,9 +14,12 @@ export default defineConfig({
     ],
 
     resolve: {
-        alias: {
-            '@': resolve(__dirname, './src'),
-        }
+        alias: [
+            {
+                find: '@',
+                replacement: resolve('./src')
+            }
+        ]
     },
     // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
     // prevent vite from obscuring rust errors

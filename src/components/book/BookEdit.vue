@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import {ref} from "vue";
-import {BookModel} from "../../types/model";
+import {BookModel} from "@/types/model";
 import {nanoid} from "nanoid";
-import {request} from "../../api/request";
+import {request} from "@/api/request";
 import {dialog, path} from "@tauri-apps/api";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
-import {useEnvStore} from "../../Store";
+import {useEnvStore} from "@/Store";
 
 const props = defineProps<{ refreshFunc: Function, showStatus: Boolean, closeFunc: Function }>();
 const formRef = ref()

@@ -7,7 +7,7 @@ import {TaskItem} from "@tiptap/extension-task-item";
 import {CharacterCount} from "@tiptap/extension-character-count";
 import MenuBar from "./MenuBar.vue";
 import EditorFooter from "./EditorFooter.vue";
-import "../../../assets/css/editor.css"
+import "@/assets/css/editor.css"
 
 
 const editor = useEditor({

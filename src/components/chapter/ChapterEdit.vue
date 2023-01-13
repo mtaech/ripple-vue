@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
 
-import {Chapter, EditorInfo} from "../../types/model";
-import {getRouteStingParam, request} from "../../api/request";
+import {Chapter, EditorInfo} from "@/types/model";
+import {getRouteStingParam, request} from "@/api/request";
 import {useRoute} from "vue-router";
 import {onBeforeUnmount} from "vue";
-import routers from "../../Routers";
+import routers from "@/Routers";
 import { Message } from '@arco-design/web-vue';
 
 let route = useRoute();

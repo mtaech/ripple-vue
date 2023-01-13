@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {Editor} from "@tiptap/vue-3";
-import {Item} from '../../../types/model'
+import {Item} from '@/types/model'
 
 const {editor} = defineProps<{editor:Editor}>();
 
