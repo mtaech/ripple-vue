@@ -14,7 +14,8 @@ export interface BookModel extends BaseModel {
     name: string,
     description: string,
     cover_id:string
-    cover_path:string
+    cover_path:string,
+    text_count:number
 }
 
 export interface Page<T> {

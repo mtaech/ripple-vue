@@ -20,7 +20,7 @@ impl EnvInfo {
             log_dir_path: path_to_string(env::get_db_dir_path()),
             db_dir_path: path_to_string(env::get_db_dir_path()),
             att_dir_path: path_to_string(env::get_attachment_dir_dir()),
-            cover_dir_path: path_to_string(env::get_cover_dir_dir()),
+            cover_dir_path: path_to_string(env::get_cover_dir_path()),
         }
     }
 }

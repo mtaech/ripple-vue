@@ -29,6 +29,7 @@ entity = {path = "entity"}
 nanoid = "0.4.0"
 once_cell = "1"
 rust-embed = "6"
+mime_guess = "2"
 
 [features]
 # by default Tauri runs in production mode

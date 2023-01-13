@@ -22,9 +22,13 @@
         "open": true,
         "save": true
       },
+      "protocol": {
+        "asset": true,
+        "assetScope": ["$PICTURE/*/*","$CONFIG/**"]
+      },
       "fs": {
         "scope":[
-          "$PICTURE/*/*"
+          "$PICTURE/*/*","$HOME"
         ],
         "all": true,
         "readFile": true,
@@ -39,11 +43,8 @@
       },
       "path":{
         "all": true
-      },
-      "protocol": {
-        "asset": true,
-        "assetScope": ["$PICTURE/**","$CONFIG/**"]
       }
+
     },
     "bundle": {
       "active": true,
@@ -79,13 +80,14 @@
       }
     },
     "security": {
-      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost; media-src 'self' asset: https://asset.localhost"
     },
     "updater": {
       "active": false
     },
     "windows": [
       {
+        "maximized": true,
         "fullscreen": false,
         "height": 900,
         "resizable": true,

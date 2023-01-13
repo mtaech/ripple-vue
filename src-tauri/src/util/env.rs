@@ -42,7 +42,7 @@ pub fn get_attachment_dir_dir() -> PathBuf {
     path
 }
 
-pub fn get_cover_dir_dir() -> PathBuf {
+pub fn get_cover_dir_path() -> PathBuf {
     let path = get_config_dir_path().join("cover");
     if !path.exists() {
         fs::create_dir_all(&path).expect("create cover dir error");

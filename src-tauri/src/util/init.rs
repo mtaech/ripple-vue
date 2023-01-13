@@ -1,5 +1,5 @@
 use crate::util::env;
-use crate::util::env::{get_attachment_dir_dir, get_config_dir_path, get_cover_dir_dir};
+use crate::util::env::{get_attachment_dir_dir, get_config_dir_path, get_cover_dir_path};
 use log::info;
 use rust_embed::RustEmbed;
 use sea_orm::{ConnectOptions, Database, DatabaseConnection, DbErr};
@@ -35,7 +35,7 @@ pub async fn init_db() -> Result<DatabaseConnection, DbErr> {
         .idle_timeout(Duration::from_secs(8))
         .max_lifetime(Duration::from_secs(8))
         .sqlx_logging(true)
-        .sqlx_logging_level(log::LevelFilter::Warn); // Setting default PostgreSQL schema
+        .sqlx_logging_level(log::LevelFilter::Info);
 
     let db = Database::connect(opt).await?;
     Ok(db)
@@ -67,7 +67,7 @@ pub fn init_attachment_dir() -> PathBuf {
 }
 
 pub fn init_cover_file() {
-    let cover_dir_path = get_cover_dir_dir();
+    let cover_dir_path = get_cover_dir_path();
     let cover_path = cover_dir_path.join("cover.png");
     let cover_dark_path = cover_dir_path.join("cover_dark.png");
     let cover = Asset::get("cover/cover.png").unwrap();

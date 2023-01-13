@@ -9,12 +9,15 @@ import BookItem from "./BookItem.vue";
 
 const bookListRef = ref<BookModel[]>([] as BookModel[]);
 const editShowRef = ref<boolean>(false);
+const bookEditRef = ref()
+const bookItemRef = ref()
 onMounted(() => {
   getBookList();
 })
 
 function getBookList() {
   request<BookModel[]>("get_book_list").then((bookList) => {
+    console.log("book list",bookList)
     bookListRef.value = bookList
   })
 }
@@ -26,8 +29,6 @@ function openModal() {
 function closeModal() {
   editShowRef.value = false;
 }
-
-const bookEditRef = ref<any>()
 
 function saveBook() {
   bookEditRef.value.saveBook();
@@ -52,7 +53,7 @@ function saveBook() {
     </n-page-header>
     <n-card class="default-content" :bordered="false">
       <n-list clickable >
-        <book-item :book-list="bookListRef"/>
+        <book-item ref="bookItemRef" :book-list="bookListRef" :refresh-fun="getBookList"/>
       </n-list>
     </n-card>
     <div>

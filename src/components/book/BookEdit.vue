@@ -24,7 +24,7 @@ let bookValueRef = ref<BookModel>(book)
 
 const envStore = useEnvStore();
 
-let src = convertFileSrc(envStore.env.cover_dir_path + "/cover_dark.png");
+let src = envStore.env.cover_dir_path + "/cover_dark.png";
 console.log("src", src)
 const coverRef = ref<string>(src);
 
@@ -35,7 +35,7 @@ const saveBook = () => {
       console.log("meifatijao")
     } else {
       console.log("save book")
-      request<BookModel>("save_book", {book: bookValueRef.value}).then((book) => {
+      request<BookModel>("save_book", {book: bookValueRef.value,coverUrl:coverRef.value}).then((book) => {
         console.log("book", book)
         props.refreshFunc();
         props.closeFunc();
@@ -54,12 +54,15 @@ function uploadCover() {
     }]
   }).then(filePath => {
     if (filePath !== null && typeof filePath === 'string') {
-      coverRef.value = convertFileSrc(filePath);
+      coverRef.value = filePath;
       console.log("open file", filePath)
     }
   })
 }
 
+function convertSrc(path:string) {
+  return convertFileSrc(path)
+}
 
 defineExpose({saveBook})
 
@@ -74,7 +77,7 @@ const rules = {
 
 <template>
   <div style="margin-bottom: 25px;">
-    <n-image :src="coverRef" width="150" height="200" style="border-radius: 5px;margin-bottom: -5px;"/>
+    <n-image :src="convertSrc(coverRef)" width="150" height="200" style="border-radius: 5px;margin-bottom: -5px;"/>
     <n-button @click="uploadCover" style="margin-left: 10px;bottom: 15px;">上传封面</n-button>
   </div>
 

@@ -14,6 +14,8 @@ pub struct Model {
     pub description: Option<String>,
     pub create_time: Option<String>,
     pub modified_time: Option<String>,
+    #[sea_orm(ignore)]
+    pub text_count: Option<i32>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

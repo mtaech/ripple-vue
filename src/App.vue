@@ -14,12 +14,13 @@ const themeOverrides: GlobalThemeOverrides = {
 </script>
 
 <template>
-
-  <n-config-provider :locale="zhCN" :date-locale="dateZhCN">
+  <n-config-provider  :locale="zhCN" :date-locale="dateZhCN">
     <n-message-provider>
-      <div class="container">
-        <Home/>
-      </div>
+      <n-dialog-provider>
+        <div class="container">
+          <Home/>
+        </div>
+      </n-dialog-provider>
     </n-message-provider>
   </n-config-provider>
 </template>
